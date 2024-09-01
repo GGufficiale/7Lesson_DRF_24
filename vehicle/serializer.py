@@ -11,7 +11,7 @@ class MilageSerializer(serializers.ModelSerializer):
 class CarSerializer(serializers.ModelSerializer):
     # Опция вывода последнего записанного пробега
     last_milage = serializers.IntegerField(source='milage_set.all.first.milage')
-    milage = MilageSerializer(sourse='milage_set', many=True)
+    milage = MilageSerializer(source='milage_set', many=True)
 
     class Meta:
         model = Car
@@ -30,3 +30,11 @@ class MotoSerializer(serializers.ModelSerializer):
         if instance.milage_set.all().first():
             return instance.milage_set.all().first().milage
         return 0
+
+
+class MotoMilageSerializer(serializers.ModelSerializer):
+    moto = MotoSerializer()
+
+    class Meta:
+        model = Milage
+        fields = ('milage', 'year', 'moto',)
