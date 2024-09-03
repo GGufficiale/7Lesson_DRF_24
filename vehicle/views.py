@@ -4,6 +4,7 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 
 from vehicle.models import Car, Moto, Milage
+from vehicle.permissions import IsOwnerOrStaff
 from vehicle.serializer import CarSerializer, MotoSerializer, MilageSerializer, MotoMilageSerializer, \
     MotoCreateSerializer
 
@@ -17,6 +18,13 @@ class CarViewSet(viewsets.ModelViewSet):
 
 class MotoCreateAPIView(generics.CreateAPIView):
     serializer_class = MotoCreateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        """Метод для проверки прав доступа на модель у владельца объекта"""
+        new_moto = serializer.save()
+        new_moto.owner = self.request.user
+        new_moto.save()
 
 
 class MotoListAPIView(generics.ListAPIView):
@@ -32,6 +40,7 @@ class MotoRetrieveAPIView(generics.RetrieveAPIView):
 class MotoUpdateAPIView(generics.UpdateAPIView):
     serializer_class = MotoSerializer
     queryset = Moto.objects.all()
+    permission_classes = [IsOwnerOrStaff]
 
 
 class MotoDestroyAPIView(generics.DestroyAPIView):
