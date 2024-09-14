@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_yasg',
+    'corsheaders',
+
     'users',
     'vehicle',
 ]
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -141,3 +145,22 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
 }
+""" Настройка CORS - механизм безопасности браузера, который ограничивает запросы, отправляемые с веб-страницы в один 
+домен, к ресурсам, расположенным на другом домене. Это важно для защиты пользователей от несанкционированного доступа 
+к данным на разных доменах. """
+
+CORS_ALLOWED_ORIGINS = [
+    'https://read-only.example.com',  # Замените на адрес вашего фронтенд-сервера
+    'https://read-and-write.example.com'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",  # Замените на адрес вашего фронтенд-сервера
+    # и добавьте адрес бэкенд-сервера
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+# ссылки на ключ и урл на сайт, где запрашивается курс рубля к доллару
+CURRENCY_API_URL = 'https://api.currencyapi.com/'
+CURRENCY_API_KEY = 'cur_live_MJdjWR43b5qtIShXr7jSPW46y2zyTtnT0jS03S5c'
