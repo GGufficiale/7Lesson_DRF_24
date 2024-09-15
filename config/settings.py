@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'corsheaders',
+    'django_celery_beat',
 
     'users',
     'vehicle',
@@ -178,3 +180,9 @@ CACHES = {
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'  # Redis, который по умолчанию работает на порту 6379
 # URL-адрес брокера результатов, также Redis
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'myapp.tasks.my_task',  # Путь к задаче
+        'schedule': timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+}

@@ -20,6 +20,7 @@ class Moto(models.Model):
     title = models.CharField(max_length=150, verbose_name='название', unique=True)
     description = models.TextField(verbose_name='описание', unique=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="цена")
 
     def __str__(self):
         return f'{self.title}'
