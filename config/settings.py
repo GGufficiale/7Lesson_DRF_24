@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'django-insecure-^#d6jj4%t)pgowk+2vd-tw$vck0i3f2%_ugu@aw!!t8)fi+b+d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'drf_project',
         'USER': 'postgres',
-        'PASSWORD': '',
+        'PASSWORD': '10203040',
         'PORT': 5432
     }
 }
@@ -165,7 +165,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 # ссылки на ключ и урл на сайт, где запрашивается курс рубля к доллару
 CURRENCY_API_URL = 'https://api.currencyapi.com/'
-CURRENCY_API_KEY = ''
+CURRENCY_API_KEY = 'cur_live_MJdjWR43b5qtIShXr7jSPW46y2zyTtnT0jS03S5c'
 
 # Настройки кеширования (Redis)
 CACHES = {
